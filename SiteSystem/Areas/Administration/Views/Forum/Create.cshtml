@@ -1,0 +1,15 @@
+﻿@using SiteSystem.ViewModels
+
+@model ForumViewModels
+
+<h2>Create Forum</h2>
+@using (Html.BeginForm("Create", "Forum", new { Area = "Administration" }, FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.ForumName)
+        @Html.TextBoxFor(model => model.ForumName, new { @class = "form-control" })
+    </div>
+
+    <input type="submit" value="Create" />
+}
+

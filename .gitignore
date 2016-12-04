@@ -1,0 +1,5 @@
+.vs/
+**/packages/*
+!**/packages/build/
+[Dd]ebug
+[Dd]ebugPublic

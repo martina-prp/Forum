@@ -1,0 +1,42 @@
+﻿@using SiteSystem.ViewModels
+
+@model List<ForumViewModels>
+
+<div>
+    @Html.ActionLink("New Forum", "Create", "Forum", new { Area = "Administration" }, new { @class = "btn btn-primary btn-large" })
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Forum</th>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <th>Operations</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forum in Model)
+            {
+                <tr>
+                    <th>
+                        <div>
+                            <h3>@Html.ActionLink(forum.ForumName, "Info", "Forum", new { @forum.Id }, null)</h3>
+                        </div>
+                        <div>Created by: @forum.User.UserName on @forum.DateCreated</div>
+                    </th>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <th>
+                            <div>@Html.ActionLink("Update", "Update", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
+                            <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
+                        </th>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

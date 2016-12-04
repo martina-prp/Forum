@@ -1,0 +1,16 @@
+﻿@using SiteSystem.ViewModels
+
+@model ForumViewModels
+
+<h2>Update Forum</h2>
+
+@using (Html.BeginForm("Update", "Forum", new { Area = "Administration"}, FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(model => model.DateCreated)
+        @Html.LabelFor(model => model.ForumName)
+        @Html.TextBoxFor(model => model.ForumName, new { @class = "form-control" })
+    </div>
+
+    <input type="submit" value="Update" />
+}

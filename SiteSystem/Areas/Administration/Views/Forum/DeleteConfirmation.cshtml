@@ -1,0 +1,16 @@
+﻿@using SiteSystem.ViewModels
+@model ForumViewModels
+
+<h2>Delete</h2>
+
+<h2>Are you sure you want to delete this forum?</h2>
+
+<div class="jumbotron">
+    <h1>@Model.ForumName</h1>
+    <p style="font-size: small">Created at: @Model.DateCreated</p>
+    <p style="font-size: small">Created by: @Model.User.UserName</p>
+
+    <div>
+        @Html.ActionLink("Delete", "Delete", "Forum", new { Area ="Administration", id = Model.Id }, null)
+    </div>
+</div>
