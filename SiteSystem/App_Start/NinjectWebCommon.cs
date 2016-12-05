@@ -83,6 +83,11 @@ namespace SiteSystem.App_Start
                .Bind<ITopicService>()
                .To<TopicService>()
                .InRequestScope();
+
+            kernel
+               .Bind<ICommentService>()
+               .To<CommentService>()
+               .InRequestScope();
         }        
     }
 }

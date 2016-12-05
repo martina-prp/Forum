@@ -26,20 +26,15 @@ namespace SiteSystem.Controllers
             this.userService = userService;
         }
 
-        public ActionResult Index(string all)
+        public ActionResult Index()
         {
-            List<SiteForum> dbForums = new List<SiteForum>();
-
-            if (all == null)
-            {
-                dbForums = forumService.GetAll().Where(forum => forum.User.UserName == User.Identity.Name).ToList();
-            }
-            else
-            {
-                dbForums = forumService.GetAll().ToList();
-            }
+            List<SiteForum> dbForums = forumService.GetAll().ToList();
 
             List<ForumViewModels> forums = Mapper.Map<List<SiteForum>, List<ForumViewModels>>(dbForums);
+            for (int i = 0; i < dbForums.Count; i++)
+            {
+                forums[i].ForumTopics = Mapper.Map<List<Topic>, List<TopicViewModels>>(forumService.GetForumTopics(dbForums[i].Id).ToList());
+            }
 
             return View(forums);
         }

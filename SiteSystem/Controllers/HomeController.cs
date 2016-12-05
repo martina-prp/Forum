@@ -10,7 +10,7 @@ namespace SiteSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Forum");
         }
 
         public ActionResult About()

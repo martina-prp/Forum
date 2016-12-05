@@ -22,6 +22,8 @@ namespace SiteSystem
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForAllOtherMembers(x => x.Ignore());
 
+                config.CreateMap<CommentViewModels, Comment>().ReverseMap();
+
                 config.CreateMap<TopicViewModels, Topic>()
                 .ForMember(dest => dest.Comments, opt => opt.Ignore());
                 //.ForMember(dest => dest.Forum, opt => opt.ResolveUsing<CustomForumResolver, SiteForum>();

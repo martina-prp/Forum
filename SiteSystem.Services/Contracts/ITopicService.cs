@@ -10,5 +10,13 @@ namespace SiteSystem.Services.Contracts
     public interface ITopicService : IService<Topic>
     {
         IQueryable<Topic> GetAll();
+
+        void Add(Topic entity);
+
+        void Update(Topic entity);
+
+        void Delete(object id);
+
+        ICollection<Comment> GetTopicComments(int id);
     }
 }

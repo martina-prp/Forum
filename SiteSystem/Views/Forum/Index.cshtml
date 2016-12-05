@@ -2,15 +2,19 @@
 
 @model List<ForumViewModels>
 
-<div>
-    @Html.ActionLink("New Forum", "Create", "Forum", new { Area = "Administration" }, new { @class = "btn btn-primary btn-large" })
-</div>
+@if (User.IsInRole("Administrator"))
+{
+    <div>
+        @Html.ActionLink("New Forum", "Create", "Forum", new { Area = "Administration" }, new { @class = "btn btn-primary btn-large" })
+    </div>
+}
 
 <div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
                 <th>Forum</th>
+                <th>Topics</th>
                 @if (User.IsInRole("Administrator"))
                 {
                     <th>Operations</th>
@@ -26,6 +30,9 @@
                             <h3>@Html.ActionLink(forum.ForumName, "Info", "Forum", new { @forum.Id }, null)</h3>
                         </div>
                         <div>Created by: @forum.User.UserName on @forum.DateCreated</div>
+                    </th>
+                    <th>
+                        @forum.ForumTopics.Count
                     </th>
                     @if (User.IsInRole("Administrator"))
                     {

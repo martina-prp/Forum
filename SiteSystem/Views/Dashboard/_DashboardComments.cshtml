@@ -1,0 +1,41 @@
+﻿@using SiteSystem.ViewModels
+@using System.Text.RegularExpressions
+
+@model List<CommentViewModels>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Forum</th>
+                <th>Topic</th>
+                <th>Comment Summary</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Model)
+            {
+                <tr>
+                    <td>
+                        <h4>@Html.ActionLink(comment.Topic.Forum.ForumName, "Info", "Forum", new { @comment.Topic.Forum.Id }, null)</h4>
+                    </td>
+                    <td>
+                        <div>
+                            <h4>@Html.ActionLink(comment.Topic.TopicName, "Info", "Topic", new { @comment.Topic.Id }, null)</h4>
+                        </div>
+                        <div>Created on: @comment.DateCreated</div>
+                    </td>
+                    <td>
+                        @String.Join(" ", Regex.Replace(comment.Text, "<.*?>", "").Trim().Split(' ').Take(10))
+                    </td>
+                    <td>
+                        <div>@Html.ActionLink("Update", "Update", "Comment", new { id = @comment.Id }, null)</div>
+                        <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Comment", new { id = @comment.Id }, null)</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

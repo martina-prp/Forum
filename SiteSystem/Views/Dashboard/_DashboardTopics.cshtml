@@ -1,0 +1,35 @@
+﻿@using SiteSystem.ViewModels
+
+@model List<TopicViewModels>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Forum</th>
+                <th>Topic</th>
+                <th>Comments</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model)
+            {
+                <tr>
+                    <th>
+                        <h4>@Html.ActionLink(topic.Forum.ForumName, "Info", "Forum", new { @topic.Forum.Id }, null)</h4>
+                    </th>
+                    <th>
+                        <div><h4>@Html.ActionLink(topic.TopicName, "Info", "Topic", new { @topic.Id }, null)</h4></div>
+                        <div>Created on: @topic.DateCreated</div>
+                    </th>
+                    <th>@topic.Comments.Count</th>
+                    <th>
+                        <div>@Html.ActionLink("Update", "Update", "Topic", new { id = @topic.Id }, null)</div>
+                        <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Topic", new { id = @topic.Id }, null)</div>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

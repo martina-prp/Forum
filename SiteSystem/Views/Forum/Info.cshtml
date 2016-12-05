@@ -12,6 +12,7 @@
         <thead>
             <tr>
                 <th>Topic</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
                         <div><h3>@Html.ActionLink(topic.TopicName, "Info", "Topic", new { @topic.Id }, null)</h3></div>
                         <div>Created by: @topic.User.UserName on @topic.DateCreated</div>
                     </th>
+                    <th>@topic.Comments.Count</th>
                 </tr>
             }
         </tbody>

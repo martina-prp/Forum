@@ -1,13 +1,16 @@
-﻿using System;
+﻿using SiteSystem.Models;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace SiteSystem.ViewModels
 {
     public class TopicViewModels
     {
-        /*public Topic()
+        public TopicViewModels()
         {
-            Comments = new List<Comments>();
-        }*/
+            Comments = new List<Comment>();
+        }
         public int Id
         {
             get;
@@ -20,6 +23,12 @@ namespace SiteSystem.ViewModels
             set;
         }
 
+        [AllowHtml]
+        public string TopicText
+        {
+            get;
+            set;
+        }
         public DateTime? DateCreated
         {
             get;
@@ -38,10 +47,10 @@ namespace SiteSystem.ViewModels
             set;
         }
 
-        /*public ICollection<Comment> Comments
+        public ICollection<Comment> Comments
         {
             get;
             set;
-        }*/
+        }
     }
 }

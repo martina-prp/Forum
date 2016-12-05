@@ -1,0 +1,82 @@
+﻿@using SiteSystem.Wrappers;
+
+@model TopicInfoWrapper
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/scripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        function SuccessHandler() {
+            tinymce.activeEditor.setContent("");
+        };
+
+        tinymce.init({
+            selector: 'textarea',
+            height: 250,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css'
+        });
+
+    </script>
+}
+
+<h2>@Model.Topic.TopicName</h2>
+
+@if (Model.Topic.TopicText != null)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>@Model.Topic.TopicName</div>
+            By @Model.Topic.User.UserName
+            On <em>@Model.Topic.DateCreated</em>
+        </div>
+        <p class="panel-body">@Html.Raw(Model.Topic.TopicText)</p>
+    </div>
+}
+
+@foreach (var comment in Model.TopicComments)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>Re: @Model.Topic.TopicName</div>
+            By @comment.User.UserName
+            On <em>@comment.DateCreated</em>
+        </div>
+
+        <p class="panel-body">@Html.Raw(comment.Text)</p><br />
+    </div>
+}
+
+<div id="ajax-comment-target"></div>
+
+@using (Ajax.BeginForm(
+                    actionName: "Create",
+                    controllerName: "Comment",
+                    routeValues: new { id = Model.Topic.Id },
+                    ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "ajax-comment-target",
+                        InsertionMode = InsertionMode.Replace,
+                        OnSuccess = "SuccessHandler"
+                    },
+                    htmlAttributes: new
+                    {
+                        @id = "post-comment-form"
+                    }))
+{
+    <div>
+        @Html.Label("Comment")
+        @Html.TextArea("Text", new { @class = "form-control" })
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary" value="Add">
+    </div>
+}
+

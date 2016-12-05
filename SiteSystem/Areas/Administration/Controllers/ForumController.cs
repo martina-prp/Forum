@@ -25,12 +25,14 @@ namespace SiteSystem.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Administrator")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(ForumViewModels forumViewModels)
         {
             if (ModelState.IsValid)
@@ -42,9 +44,10 @@ namespace SiteSystem.Areas.Administration.Controllers
                 forumService.Add(forum);
             }
 
-            return RedirectToAction("Index", "Forum", new { Area = "", all = "All"});
+            return RedirectToAction("Index", "Forum", new { Area = ""});
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmation(int id)
         {
             var dbForum = forumService.Find(id);
@@ -58,6 +61,7 @@ namespace SiteSystem.Areas.Administration.Controllers
             return View(forumVm);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id)
         {
             var dbForum = forumService.Find(id);
@@ -70,10 +74,11 @@ namespace SiteSystem.Areas.Administration.Controllers
 
             forumService.Delete(id);
 
-            return RedirectToAction("Index", "Forum", new { Area = "", all = "All"});
+            return RedirectToAction("Index", "Forum", new { Area = ""});
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Update(int id)
         {
             SiteForum forumDb = forumService.Find(id);
@@ -82,6 +87,7 @@ namespace SiteSystem.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Update(int id, ForumViewModels forumVm)
         {
             if (!ModelState.IsValid)
@@ -91,7 +97,7 @@ namespace SiteSystem.Areas.Administration.Controllers
 
             forumService.Update(Mapper.Map<SiteForum>(forumVm));
 
-            return RedirectToAction("Index", "Forum", new { Area = "", all = "All" });
+            return RedirectToAction("Index", "Forum", new { Area = ""});
         }
     }
 }

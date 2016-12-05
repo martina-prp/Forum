@@ -1,0 +1,15 @@
+﻿@using SiteSystem.ViewModels
+
+@model CommentViewModels
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div>Re: @Model.Topic.TopicName</div>
+        By @Model.User.UserName
+        On <em>@Model.DateCreated</em>
+    </div>
+
+    <p class="panel-body">@Html.Raw(Model.Text)</p><br />
+</div>
+
+<div id="ajax-comment-target"></div>

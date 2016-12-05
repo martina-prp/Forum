@@ -27,5 +27,21 @@ namespace SiteSystem.Services
             base.Add(entity);
             SaveChanges();
         }
+
+        public override void Update(Topic entity)
+        {
+            base.Update(entity);
+            SaveChanges();
+        }
+        public override void Delete(object id)
+        {
+            base.Delete(id);
+            SaveChanges();
+        }
+
+        public ICollection<Comment> GetTopicComments(int id)
+        {
+            return Find(id).Comments;
+        }
     }
 }
