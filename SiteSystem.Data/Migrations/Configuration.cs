@@ -1,5 +1,8 @@
 namespace SiteSystem.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +30,35 @@ namespace SiteSystem.Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            // Create Administrator role and admin user;
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(context));
+            string[] Roles = { "Administrator" };
+
+            foreach (var roleName in Roles)
+            {
+                var roleExists = roleManager.RoleExists(roleName);
+                if (!roleExists)
+                {
+                    roleManager.Create(new IdentityRole(roleName));
+                }
+            }
+
+            if (roleManager.RoleExists("Administrator"))
+            {
+                var user = new ApplicationUser();
+                user.UserName = "admin@site.com";
+                user.Email = "admin@site.com";
+
+                var userCreateResult = userManager.Create(user, "Admin@57");
+
+                if (userCreateResult.Succeeded)
+                {
+                    userManager.AddToRole(user.Id, "Administrator");
+                }
+            }
         }
     }
 }
