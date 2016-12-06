@@ -13,7 +13,7 @@ namespace SiteSystem.Services.Contracts
 
         void Add(Comment entity);
 
-        //void Update(Comment entity);
+        void Update(Comment entity);
 
         //void Delete(object id);
     }

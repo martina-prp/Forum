@@ -2,6 +2,7 @@
 
 @model CommentViewModels
 
+@Html.AntiForgeryToken()
 <div class="panel panel-default">
     <div class="panel-heading">
         <div>Re: @Model.Topic.TopicName</div>

@@ -57,5 +57,28 @@ namespace SiteSystem.Controllers
 
             return PartialView("_Create", commentViewModels);
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            Comment commentDb = commentService.Find(id);
+
+            return View(Mapper.Map<CommentViewModels>(commentDb));
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(int id, CommentViewModels commentVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Edit");
+            }
+
+            commentService.Update(Mapper.Map<Comment>(commentVm));
+
+            return RedirectToAction("Info", "Topic", new { id = commentVm.Topic.Id });
+        }
     }
 }

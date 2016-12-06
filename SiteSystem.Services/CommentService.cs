@@ -26,5 +26,11 @@ namespace SiteSystem.Services
             base.Add(entity);
             SaveChanges();
         }
+
+        public override void Update(Comment entity)
+        {
+            base.Update(entity);
+            SaveChanges();
+        }
     }
 }

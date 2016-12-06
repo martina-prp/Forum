@@ -23,7 +23,7 @@ namespace SiteSystem.Controllers
             this.commentService = commentService;
         }
 
-        // GET: Dashboard/Dashboard
+        // GET: Dashboard
         public ActionResult Index()
         {
             List<Topic> dbTopics = topicService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();

@@ -21,16 +21,22 @@
     </script>
 }
 
-<h2>Create Comment</h2>
+<h2>Edit Comment</h2>
 
 @Html.AntiForgeryToken()
-@using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Comment", FormMethod.Post))
 {
+    <div>
+        @Html.HiddenFor(model => model.DateCreated)
+        @Html.HiddenFor(model => model.Topic.Id)
+    </div>
     <div>
         @Html.LabelFor(model => model.Text)
         @Html.TextAreaFor(model => model.Text, new { @class = "form-control" })
-    </div>
+    </div><br />
 
-    <input type="submit" value="Create" class="btn btn-primary btn-large" />
+    <input type="submit" value="Edit" class="btn btn-primary btn-large" />
+    @Html.ActionLink("Cancel", "Info", "Topic", new { id = Model.Topic.Id }, new { @class = "btn btn-primary btn-large" })
 }
+
 
