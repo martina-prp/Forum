@@ -27,7 +27,7 @@
                     </td>
                     <td width="50" style="word-wrap: break-word">
                         @Html.ActionLink(String.Join(" ", Regex.Replace(comment.Text, "<.*?>", "").Trim().Split(' ').Take(10)),
-                                         "info", "Topic", new { id = @comment.Topic.Id }, null)
+                            "info", "Topic", new { id = @comment.Topic.Id }, null);
                     </td>
                 </tr>
             }

@@ -1,6 +1,7 @@
 ﻿using SiteSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace SiteSystem.ViewModels
@@ -17,6 +18,7 @@ namespace SiteSystem.ViewModels
             set;
         }
 
+        [Required(ErrorMessage = "Topic Name is required!")]
         public string TopicName
         {
             get;
@@ -24,6 +26,7 @@ namespace SiteSystem.ViewModels
         }
 
         [AllowHtml]
+        [Required(ErrorMessage = "Topic Text is required!")]
         public string TopicText
         {
             get;

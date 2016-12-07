@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SiteSystem.ViewModels
 {
@@ -16,6 +17,7 @@ namespace SiteSystem.ViewModels
             set;
         }
 
+        [Required(ErrorMessage = "Forum Name is required!")]
         public string ForumName
         {
             get;

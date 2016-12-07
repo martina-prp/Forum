@@ -20,6 +20,11 @@ namespace SiteSystem.Wrappers
             set;
         }
 
+        public DashboardInfoWrapper()
+        {
+            Topics = new List<TopicViewModels>();
+            Comments = new List<CommentViewModels>();
+        }
         public DashboardInfoWrapper(ICollection<TopicViewModels> topics, ICollection<CommentViewModels> comments)
         {
             Topics = topics;

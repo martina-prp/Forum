@@ -2,14 +2,22 @@
 
 @model ForumViewModels
 
+@section Scripts {
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
 <h2>Create Forum</h2>
+
+@Html.AntiForgeryToken()
 @using (Html.BeginForm("Create", "Forum", new { Area = "Administration" }, FormMethod.Post))
 {
     <div>
         @Html.LabelFor(model => model.ForumName)
         @Html.TextBoxFor(model => model.ForumName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ForumName, "", new { @class = "text-danger" })
     </div>
 
-    <input type="submit" value="Create" />
+    <input type="submit" value="Create" class="btn btn-primary btn-large" />
 }
 

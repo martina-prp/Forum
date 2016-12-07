@@ -2,6 +2,11 @@
 
 @model ForumViewModels
 
+@section Scripts {
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
 <h2>Update Forum</h2>
 
 @using (Html.BeginForm("Update", "Forum", new { Area = "Administration"}, FormMethod.Post))
@@ -10,7 +15,8 @@
         @Html.HiddenFor(model => model.DateCreated)
         @Html.LabelFor(model => model.ForumName)
         @Html.TextBoxFor(model => model.ForumName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ForumName, "", new { @class = "text-danger" })
     </div>
 
-    <input type="submit" value="Update" />
+    <input type="submit" value="Update" class="btn btn-primary btn-large" />
 }

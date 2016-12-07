@@ -33,6 +33,7 @@
     <div>
         @Html.LabelFor(model => model.TopicName)
         @Html.TextBoxFor(model => model.TopicName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TopicName, "", new { @class = "text-danger" })
     </div>
     <div>
         @Html.LabelFor(model => model.TopicText)

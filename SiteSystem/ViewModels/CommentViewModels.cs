@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,6 +28,7 @@ namespace SiteSystem.ViewModels
         }
 
         [AllowHtml]
+        [Required(ErrorMessage = "Comment text is required!")]
         public string Text
         {
             get;
