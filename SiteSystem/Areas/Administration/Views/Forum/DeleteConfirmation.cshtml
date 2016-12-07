@@ -9,8 +9,9 @@
     <h1>@Model.ForumName</h1>
     <p style="font-size: small">Created at: @Model.DateCreated</p>
     <p style="font-size: small">Created by: @Model.User.UserName</p>
+</div>
 
-    <div>
-        @Html.ActionLink("Delete", "Delete", "Forum", new { Area ="Administration", id = Model.Id }, null)
-    </div>
+<div>
+    @Html.ActionLink("Delete", "Delete", "Forum", new { Area = "Administration", id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink("Cancel", "Index", "Forum", new { Area = "" }, new { @class = "btn btn-primary btn-large" })
 </div>

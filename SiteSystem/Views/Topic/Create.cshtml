@@ -37,4 +37,5 @@
     </div>
 
     <input type="submit" value="Create"  class="btn btn-primary btn-large"/>
+    @Html.ActionLink("Cancel", "Info", "Forum", new { id = ViewContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-large" })
 }

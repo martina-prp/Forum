@@ -9,8 +9,9 @@
     <h1>@Model.TopicName</h1>
     <p style="font-size: small">Created at: @Model.DateCreated</p>
     <p style="font-size: small">Created by: @Model.User.UserName</p>
+</div>
 
-    <div>
-        @Html.ActionLink("Delete", "Delete", "Topic", new { id = Model.Id }, null)
-    </div>
+<div>
+    @Html.ActionLink("Delete", "Delete", "Topic", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink("Cancel", "Index", "Dashboard", null, new { @class = "btn btn-primary btn-large" })
 </div>
