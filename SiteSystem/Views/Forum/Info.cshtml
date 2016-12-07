@@ -4,30 +4,12 @@
 
 <h2>@Model.ForumName</h2>
 
-<div>@Html.ActionLink("New topic", "Create", "Topic", new { id = Model.ForumId }, new { @class = "btn btn-primary btn-large" })
+<div>
+    @Html.ActionLink("New topic", "Create", "Topic", new { id = Model.ForumId }, new { @class = "btn btn-primary btn-large" })
 </div>
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Topic</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var topic in Model.ForumTopics)
-            {
-                <tr>
-                    <th>
-                        <div><h3>@Html.ActionLink(topic.TopicName, "Info", "Topic", new { @topic.Id }, null)</h3></div>
-                        <div>Created by: @topic.User.UserName on @topic.DateCreated</div>
-                    </th>
-                    <th>@topic.Comments.Count</th>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div id="topic-list-container">
+    @Html.Partial("_Info", Model)
 </div>
 
 

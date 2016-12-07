@@ -1,4 +1,6 @@
-﻿using SiteSystem.ViewModels;
+﻿using SiteSystem.Common.Paging;
+using SiteSystem.Models;
+using SiteSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +21,13 @@ namespace SiteSystem.Wrappers
             set;
         }
 
-        public ICollection<TopicViewModels> ForumTopics
+        public PaginatedList<Topic> ForumTopics
         {
             get;
             set;
         }
 
-        public ForumInfoWrapper(int forumId, string forumName, ICollection<TopicViewModels> forumTopics)
+        public ForumInfoWrapper(int forumId, string forumName, PaginatedList<Topic> forumTopics)
         {
             ForumId = forumId;
             ForumName = forumName;

@@ -40,13 +40,26 @@ namespace SiteSystem.Controllers
             return PartialView("_Index", dbForumPageList);
         }
 
-        public ActionResult Info(int id)
+        public ActionResult Info(int id, int? page)
         {
-            List<TopicViewModels> forumTopics = Mapper.Map<List<Topic>, List<TopicViewModels>>(forumService.GetForumTopics(id).ToList());
+            int pageSize = Constants.PageSize;
+            ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
             string forumName = forumService.Find(id).ForumName;
-            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, forumTopics);
+            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), 0, pageSize);
+            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, dbTopicPageList);
            
             return View(forumWrapper);
+        }
+
+        public ActionResult AjaxInfo(int id, int? page)
+        {
+            int pageSize = Constants.PageSize;
+            ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
+            string forumName = forumService.Find(id).ForumName;
+            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), (page ?? 0), pageSize);
+            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, dbTopicPageList);
+
+            return PartialView("_Info", forumWrapper);
         }
     }
 }

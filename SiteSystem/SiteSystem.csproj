@@ -492,6 +492,7 @@
     <Content Include="Views\Dashboard\_DashboardComments.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Forum\_Index.cshtml" />
+    <Content Include="Views\Forum\_Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
