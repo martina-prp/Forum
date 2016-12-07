@@ -3,6 +3,7 @@ using SiteSystem.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using SiteSystem.Common.Paging;
 
 namespace SiteSystem
 {
@@ -36,6 +37,7 @@ namespace SiteSystem
 
                 config.CreateMap<SiteForum, ForumViewModels>()
                 .ForMember(dest => dest.ForumTopics, opt => opt.Ignore());
+
             });
 
             Mapper.Configuration.AssertConfigurationIsValid();

@@ -491,6 +491,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Dashboard\_DashboardComments.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
+    <Content Include="Views\Forum\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -522,6 +523,9 @@
       <Project>{E778DA05-157E-4C7E-AEAC-EAAF15880D05}</Project>
       <Name>SiteSystem.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

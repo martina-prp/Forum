@@ -1,0 +1,102 @@
+﻿@using SiteSystem.Models
+@using SiteSystem.Common.Paging
+
+@model PaginatedList<SiteForum>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Forum</th>
+                <th>Topics</th>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <th>Operations</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forum in Model)
+            {
+                <tr>
+                    <td>
+                        <div>
+                            <h3>@Html.ActionLink(forum.ForumName, "Info", "Forum", new { @forum.Id }, null)</h3>
+                        </div>
+                        <div>Created by: @forum.User.UserName on @forum.DateCreated</div>
+                    </td>
+                    <td>
+                        @forum.ForumTopics.Count
+                    </td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <td>
+                            <div>@Html.ActionLink("Update", "Update", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
+                            <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.HasPreviousPage && Model.HasNextPage)
+{
+    <div>
+        @Ajax.RouteLink(
+            linkText: "<<<",
+            routeName: "ForumPaging",
+            routeValues: new { page = (Model.PageIndex - 1) },
+            ajaxOptions: new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "forum-list-container",
+                InsertionMode = InsertionMode.Replace,
+            })
+        @Ajax.RouteLink(
+            linkText: ">>>",
+            routeName: "ForumPaging",
+            routeValues: new { page = (Model.PageIndex + 1) },
+            ajaxOptions: new AjaxOptions
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "forum-list-container",
+                InsertionMode = InsertionMode.Replace,
+            })
+    </div>
+}
+else
+{
+    if (Model.HasPreviousPage)
+    {
+        <div>
+            @Ajax.RouteLink(
+                linkText: "<<<",
+                routeName: "ForumPaging",
+                routeValues: new { page = (Model.PageIndex - 1) },
+                ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    UpdateTargetId = "forum-list-container",
+                    InsertionMode = InsertionMode.Replace,
+                })
+        </div>
+    }
+
+    if (Model.HasNextPage)
+    {
+        <div>
+            @Ajax.RouteLink(
+                linkText: ">>>",
+                routeName: "ForumPaging",
+                routeValues: new { page = (Model.PageIndex + 1) },
+                ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    UpdateTargetId = "forum-list-container",
+                    InsertionMode = InsertionMode.Replace,
+                })
+        </div>
+    }
+}

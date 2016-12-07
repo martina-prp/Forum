@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNet.Identity;
-using SiteSystem.Controllers;
-using SiteSystem.Data.Repositories;
-using SiteSystem.Models;
+﻿using SiteSystem.Models;
 using SiteSystem.Services.Contracts;
 using SiteSystem.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using System.Net;
 using SiteSystem.Wrappers;
+using SiteSystem.Common.Paging;
+using SiteSystem.Common;
 
 namespace SiteSystem.Controllers
 {
@@ -26,17 +22,22 @@ namespace SiteSystem.Controllers
             this.userService = userService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            List<SiteForum> dbForums = forumService.GetAll().ToList();
+            int pageSize = Constants.PageSize;
+            IQueryable<SiteForum> dbForums = forumService.GetAll();
+            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, 0, pageSize);
 
-            List<ForumViewModels> forums = Mapper.Map<List<SiteForum>, List<ForumViewModels>>(dbForums);
-            for (int i = 0; i < dbForums.Count; i++)
-            {
-                forums[i].ForumTopics = Mapper.Map<List<Topic>, List<TopicViewModels>>(forumService.GetForumTopics(dbForums[i].Id).ToList());
-            }
+            return View(dbForumPageList);
+        }
 
-            return View(forums);
+        public ActionResult AjaxIndex(int? page)
+        {
+            int pageSize = Constants.PageSize;
+            IQueryable<SiteForum> dbForums = forumService.GetAll();
+            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, (page ?? 0), pageSize);
+
+            return PartialView("_Index", dbForumPageList);
         }
 
         public ActionResult Info(int id)

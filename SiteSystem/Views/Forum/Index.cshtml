@@ -1,6 +1,7 @@
-﻿@using SiteSystem.ViewModels
+﻿@using SiteSystem.Models
+@using SiteSystem.Common.Paging
 
-@model List<ForumViewModels>
+@model PaginatedList<SiteForum>
 
 @if (User.IsInRole("Administrator"))
 {
@@ -9,41 +10,7 @@
     </div>
 }
 
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Forum</th>
-                <th>Topics</th>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <th>Operations</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forum in Model)
-            {
-                <tr>
-                    <th>
-                        <div>
-                            <h3>@Html.ActionLink(forum.ForumName, "Info", "Forum", new { @forum.Id }, null)</h3>
-                        </div>
-                        <div>Created by: @forum.User.UserName on @forum.DateCreated</div>
-                    </th>
-                    <th>
-                        @forum.ForumTopics.Count
-                    </th>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <th>
-                            <div>@Html.ActionLink("Update", "Update", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
-                            <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Forum", new { Area = "Administration", id = @forum.Id }, null)</div>
-                        </th>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+<div id="forum-list-container">
+    @Html.Partial("_Index", Model)
 </div>
 

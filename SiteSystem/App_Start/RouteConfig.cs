@@ -14,6 +14,13 @@ namespace SiteSystem
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ForumPaging",                               
+                url: "Forum/Page/{page}",                           
+                defaults: new { controller = "Forum", action = "AjaxIndex" },
+                namespaces: new[] { "SiteSystem.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
