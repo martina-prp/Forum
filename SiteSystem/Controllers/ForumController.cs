@@ -26,7 +26,7 @@ namespace SiteSystem.Controllers
         {
             int pageSize = Constants.PageSize;
             IQueryable<SiteForum> dbForums = forumService.GetAll();
-            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, 0, pageSize);
+            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, (page ?? 0), pageSize);
 
             return View(dbForumPageList);
         }
@@ -45,7 +45,7 @@ namespace SiteSystem.Controllers
             int pageSize = Constants.PageSize;
             ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
             string forumName = forumService.Find(id).ForumName;
-            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), 0, pageSize);
+            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), (page ?? 0), pageSize);
             ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, dbTopicPageList);
            
             return View(forumWrapper);

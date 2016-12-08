@@ -1,20 +1,18 @@
-﻿using SiteSystem.ViewModels;
-using System;
+﻿using SiteSystem.Common.Paging;
+using SiteSystem.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SiteSystem.Wrappers
 {
     public class DashboardInfoWrapper
     {
-        public ICollection<TopicViewModels> Topics
+        public PaginatedList<Topic> Topics
         {
             get;
             set;
         }
 
-        public ICollection<CommentViewModels> Comments
+        public PaginatedList<Comment> Comments
         {
             get;
             set;
@@ -22,10 +20,10 @@ namespace SiteSystem.Wrappers
 
         public DashboardInfoWrapper()
         {
-            Topics = new List<TopicViewModels>();
-            Comments = new List<CommentViewModels>();
+            Topics = new PaginatedList<Topic>();
+            Comments = new PaginatedList<Comment>();
         }
-        public DashboardInfoWrapper(ICollection<TopicViewModels> topics, ICollection<CommentViewModels> comments)
+        public DashboardInfoWrapper(PaginatedList<Topic > topics, PaginatedList<Comment > comments)
         {
             Topics = topics;
             Comments = comments;

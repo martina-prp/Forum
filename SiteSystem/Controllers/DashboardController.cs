@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SiteSystem.Common;
+using SiteSystem.Common.Paging;
 using SiteSystem.Controllers;
 using SiteSystem.Models;
 using SiteSystem.Services.Contracts;
@@ -23,14 +25,42 @@ namespace SiteSystem.Controllers
             this.commentService = commentService;
         }
 
-        // GET: Dashboard
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            int pageSize = Constants.PageSize;
             List<Topic> dbTopics = topicService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
-            List<Comment> dbComments = commentService.GetAll().Where(comment => comment.User.UserName == User.Identity.Name).ToList();
-            DashboardInfoWrapper dashboardWrapper = new DashboardInfoWrapper(Mapper.Map<List<TopicViewModels>>(dbTopics), Mapper.Map<List<CommentViewModels>>(dbComments));
+            PaginatedList<Topic> paginatedTopics = new PaginatedList<Topic>(dbTopics.AsQueryable(), (page ?? 0), pageSize);
 
-            return View(dashboardWrapper);
+            return View("Topics", paginatedTopics);
+        }
+
+        public ActionResult Comments(int? page)
+        {
+            int pageSize = Constants.PageSize;
+            List<Comment> dbComments = commentService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
+            PaginatedList<Comment> paginatedComments = new PaginatedList<Comment>(dbComments.AsQueryable(), (page ?? 0), pageSize);
+
+            return View(paginatedComments);
+        }
+
+        public ActionResult AjaxTopics(int? page)
+        {
+            int pageSize = Constants.PageSize;
+
+            List<Topic> dbTopics = topicService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
+            PaginatedList<Topic> paginatedTopics = new PaginatedList<Topic>(dbTopics.AsQueryable(), (page ?? 0), pageSize);
+
+            return PartialView("_Topics", paginatedTopics);
+        }
+
+        public ActionResult AjaxComments(int? page)
+        {
+            int pageSize = Constants.PageSize;
+
+            List<Comment> dbComments = commentService.GetAll().Where(comment => comment.User.UserName == User.Identity.Name).ToList();
+            PaginatedList<Comment> paginatedComments = new PaginatedList<Comment>(dbComments.AsQueryable(), (page ?? 0), pageSize);
+
+            return PartialView("_Comments", paginatedComments);
         }
     }
 }

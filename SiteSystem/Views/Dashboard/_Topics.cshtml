@@ -1,0 +1,102 @@
+﻿@using SiteSystem.Models
+@using SiteSystem.Common.Paging
+
+@model PaginatedList<Topic>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Forum</th>
+                <th>Topic</th>
+                <th>Comments</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model)
+            {
+                <tr>
+                    <td>
+                        <h4>@Html.ActionLink(topic.Forum.ForumName, "Info", "Forum", new { @topic.Forum.Id }, null)</h4>
+                    </td>
+                    <td>
+                        <div><h4>@Html.ActionLink(topic.TopicName, "Info", "Topic", new { @topic.Id }, null)</h4></div>
+                        <div>Created on: @topic.DateCreated</div>
+                    </td>
+                    <td>@topic.Comments.Count</td>
+                    <td>
+                        <div>@Html.ActionLink("Update", "Update", "Topic", new { id = @topic.Id }, null)</div>
+                        <div>@Html.ActionLink("Delete", "DeleteConfirmation", "Topic", new { id = @topic.Id }, null)</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage && Model.HasNextPage)
+            {
+            <li>
+                @Ajax.RouteLink(
+                    linkText: "<<<",
+                    routeName: "DashboardTopicsPaging",
+                    routeValues: new { page = (Model.PageIndex - 1) },
+                    ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        UpdateTargetId = "dashboard-container",
+                        InsertionMode = InsertionMode.Replace,
+                    })
+            </li>
+            <li>
+                @Ajax.RouteLink(
+                    linkText: ">>>",
+                    routeName: "DashboardTopicsPaging",
+                    routeValues: new { page = (Model.PageIndex + 1) },
+                    ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        UpdateTargetId = "dashboard-container",
+                        InsertionMode = InsertionMode.Replace,
+                    })
+            </li>
+        }
+        else
+        {
+            if (Model.HasPreviousPage)
+            {
+                <li>
+                    @Ajax.RouteLink(
+                        linkText: "<<<",
+                        routeName: "DashboardTopicsPaging",
+                        routeValues: new { page = (Model.PageIndex - 1) },
+                        ajaxOptions: new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = "dashboard-container",
+                            InsertionMode = InsertionMode.Replace,
+                        })
+                </li>
+            }
+
+            if (Model.HasNextPage)
+            {
+                <li>
+                    @Ajax.RouteLink(
+                        linkText: ">>>",
+                        routeName: "DashboardTopicsPaging",
+                        routeValues: new { page = (Model.PageIndex + 1) },
+                        ajaxOptions: new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = "dashboard-container",
+                            InsertionMode = InsertionMode.Replace,
+                        })
+                </li>
+            }
+        }
+    </ul>
+</div>

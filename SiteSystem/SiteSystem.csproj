@@ -259,8 +259,8 @@
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Forum\DeleteConfirmation.cshtml" />
     <Content Include="Areas\Administration\Views\Forum\Update.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Dashboard\_DashboardTopics.cshtml" />
+    <Content Include="Views\Dashboard\Topics.cshtml" />
+    <Content Include="Views\Dashboard\_Topics.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -489,10 +489,11 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Views\Dashboard\_DashboardComments.cshtml" />
+    <Content Include="Views\Dashboard\_Comments.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Forum\_Index.cshtml" />
     <Content Include="Views\Forum\_Info.cshtml" />
+    <Content Include="Views\Dashboard\Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

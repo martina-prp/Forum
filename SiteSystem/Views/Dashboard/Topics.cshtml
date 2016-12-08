@@ -1,0 +1,19 @@
+﻿@using SiteSystem.Models
+@using SiteSystem.Common.Paging
+
+@model PaginatedList<Topic>
+
+<nav class="navbar navbar-inverse bg-faded">
+    <form class="form-inline float-xs-left">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("My Topics", "Topics", "Dashboard")</li>
+                <li>@Html.ActionLink("My Comments", "Comments", "Dashboard")</li>
+            </ul>
+        </div>
+    </form>
+</nav>
+
+<div id="dashboard-container">
+    @Html.Partial("_Topics", Model)
+</div>
