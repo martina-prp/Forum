@@ -8,6 +8,7 @@ using AutoMapper;
 using SiteSystem.Wrappers;
 using SiteSystem.Common.Paging;
 using SiteSystem.Common;
+using SiteSystem.Common.Caching;
 
 namespace SiteSystem.Controllers
 {
@@ -15,17 +16,24 @@ namespace SiteSystem.Controllers
     {
         private IForumService forumService;
         private IApplicationUserService userService;
+        private ICacheService cacheService;
 
-        public ForumController(IForumService forumService, IApplicationUserService userService)
+        public ForumController(IForumService forumService, IApplicationUserService userService, ICacheService cacheService)
         {
             this.forumService = forumService;
             this.userService = userService;
+            this.cacheService = cacheService;
         }
 
         public ActionResult Index(int? page)
         {
             int pageSize = Constants.PageSize;
-            List<SiteForum> dbForums = forumService.GetAll().ToList();
+
+            List<SiteForum> dbForums = cacheService.Get<List<SiteForum>>("allForums", () =>
+            {
+                return forumService.GetAll().ToList();
+            }, 60);
+
             List<ForumViewModels> forums = Mapper.Map<List<ForumViewModels>>(dbForums);
             PaginatedList<ForumViewModels> forumPageList = new PaginatedList<ForumViewModels>(forums, (page ?? 0), pageSize);
 
@@ -35,7 +43,12 @@ namespace SiteSystem.Controllers
         public ActionResult AjaxIndex(int? page)
         {
             int pageSize = Constants.PageSize;
-            List<SiteForum> dbForums = forumService.GetAll().ToList();
+
+            List<SiteForum> dbForums = cacheService.Get<List<SiteForum>>("allForums", () =>
+            {
+                return forumService.GetAll().ToList();
+            }, 60);
+
             List<ForumViewModels> forums = Mapper.Map<List<ForumViewModels>>(dbForums);
             PaginatedList<ForumViewModels> forumPageList = new PaginatedList<ForumViewModels>(forums, (page ?? 0), pageSize);
 
@@ -45,7 +58,12 @@ namespace SiteSystem.Controllers
         public ActionResult Info(int id, int? page)
         {
             int pageSize = Constants.PageSize;
-            ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
+
+            List<Topic> dbForumTopics = cacheService.Get<List<Topic>>("forumTopics", () =>
+            {
+                return forumService.GetForumTopics(id).ToList();
+            }, 60);
+
             string forumName = forumService.Find(id).ForumName;
             List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbForumTopics);
             PaginatedList<TopicViewModels> topicPageList = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);
@@ -57,7 +75,12 @@ namespace SiteSystem.Controllers
         public ActionResult AjaxInfo(int id, int? page)
         {
             int pageSize = Constants.PageSize;
-            ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
+
+            List<Topic> dbForumTopics = cacheService.Get<List<Topic>>("forumTopics", () =>
+            {
+                return forumService.GetForumTopics(id).ToList();
+            }, 60);
+
             string forumName = forumService.Find(id).ForumName;
             List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbForumTopics);
             PaginatedList<TopicViewModels> topicPageList = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);

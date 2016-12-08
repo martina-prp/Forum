@@ -13,6 +13,7 @@ namespace SiteSystem.App_Start
     using Data;
     using Services;
     using Services.Contracts;
+    using Common.Caching;
 
     public static class NinjectWebCommon 
     {
@@ -88,6 +89,11 @@ namespace SiteSystem.App_Start
                .Bind<ICommentService>()
                .To<CommentService>()
                .InRequestScope();
+
+            kernel
+              .Bind<ICacheService>()
+              .To<HttpCacheService>()
+              .InRequestScope();
         }        
     }
 }
