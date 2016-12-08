@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 
 namespace SiteSystem.Common.Caching
 {
-    public class HttpCacheServicecs : ICacheService
+    public class HttpCacheService : ICacheService
     {
         private static readonly Object lockObject = new object();
-
-        public object HttpRuntime { get; private set; }
 
         public T Get<T>(string itemName, Func<T> getData, int durationInSeconds)
         {
