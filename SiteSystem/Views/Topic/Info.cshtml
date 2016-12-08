@@ -60,30 +60,33 @@
     </div>
 }
 
-<div id="ajax-comment-target"></div>
-
-@using (Ajax.BeginForm(
-                    actionName: "Create",
-                    controllerName: "Comment",
-                    routeValues: new { id = Model.Topic.Id },
-                    ajaxOptions: new AjaxOptions
-                    {
-                        HttpMethod = "POST",
-                        UpdateTargetId = "ajax-comment-target",
-                        InsertionMode = InsertionMode.Replace,
-                        OnSuccess = "SuccessHandler"
-                    },
-                    htmlAttributes: new
-                    {
-                        @id = "post-comment-form"
-                    }))
+@if (User.Identity.IsAuthenticated)
 {
-    <div>
-        @Html.Label("Comment")
-        @Html.TextArea("Text", new { @class = "form-control" })
-    </div>
-    <div>
-        <input type="submit" class="btn btn-primary" value="Add Your Comment">
-    </div>
+    <div id="ajax-comment-target"></div>
+
+    using (Ajax.BeginForm(
+                actionName: "Create",
+                controllerName: "Comment",
+                routeValues: new { id = Model.Topic.Id },
+                ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "ajax-comment-target",
+                    InsertionMode = InsertionMode.Replace,
+                    OnSuccess = "SuccessHandler"
+                },
+                htmlAttributes: new
+                {
+                    @id = "post-comment-form"
+                }))
+    {
+        <div>
+            @Html.Label("Comment")
+            @Html.TextArea("Text", new { @class = "form-control" })
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Add Your Comment">
+        </div>
+    }
 }
 

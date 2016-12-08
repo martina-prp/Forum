@@ -4,9 +4,12 @@
 
 <h2>@Model.ForumName</h2>
 
-<div>
-    @Html.ActionLink("New topic", "Create", "Topic", new { id = Model.ForumId }, new { @class = "btn btn-primary btn-large" })
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        @Html.ActionLink("New topic", "Create", "Topic", new { id = Model.ForumId }, new { @class = "btn btn-primary btn-large" })
+    </div>
+}
 
 <div id="topic-list-container">
     @Html.Partial("_Info", Model)

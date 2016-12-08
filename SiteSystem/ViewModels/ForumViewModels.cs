@@ -17,6 +17,7 @@ namespace SiteSystem.ViewModels
             set;
         }
 
+        [Display(Name = "Forum Name")]
         [Required(ErrorMessage = "Forum Name is required!")]
         public string ForumName
         {

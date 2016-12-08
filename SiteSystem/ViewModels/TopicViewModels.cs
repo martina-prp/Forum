@@ -18,6 +18,7 @@ namespace SiteSystem.ViewModels
             set;
         }
 
+        [Display(Name = "Topic Name")]
         [Required(ErrorMessage = "Topic Name is required!")]
         public string TopicName
         {
@@ -26,6 +27,7 @@ namespace SiteSystem.ViewModels
         }
 
         [AllowHtml]
+        [Display(Name = "Topic Text")]
         [Required(ErrorMessage = "Topic Text is required!")]
         public string TopicText
         {
