@@ -25,19 +25,21 @@ namespace SiteSystem.Controllers
         public ActionResult Index(int? page)
         {
             int pageSize = Constants.PageSize;
-            IQueryable<SiteForum> dbForums = forumService.GetAll();
-            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, (page ?? 0), pageSize);
+            List<SiteForum> dbForums = forumService.GetAll().ToList();
+            List<ForumViewModels> forums = Mapper.Map<List<ForumViewModels>>(dbForums);
+            PaginatedList<ForumViewModels> forumPageList = new PaginatedList<ForumViewModels>(forums, (page ?? 0), pageSize);
 
-            return View(dbForumPageList);
+            return View(forumPageList);
         }
 
         public ActionResult AjaxIndex(int? page)
         {
             int pageSize = Constants.PageSize;
-            IQueryable<SiteForum> dbForums = forumService.GetAll();
-            PaginatedList<SiteForum> dbForumPageList = new PaginatedList<SiteForum>(dbForums, (page ?? 0), pageSize);
+            List<SiteForum> dbForums = forumService.GetAll().ToList();
+            List<ForumViewModels> forums = Mapper.Map<List<ForumViewModels>>(dbForums);
+            PaginatedList<ForumViewModels> forumPageList = new PaginatedList<ForumViewModels>(forums, (page ?? 0), pageSize);
 
-            return PartialView("_Index", dbForumPageList);
+            return PartialView("_Index", forumPageList);
         }
 
         public ActionResult Info(int id, int? page)
@@ -45,8 +47,9 @@ namespace SiteSystem.Controllers
             int pageSize = Constants.PageSize;
             ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
             string forumName = forumService.Find(id).ForumName;
-            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), (page ?? 0), pageSize);
-            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, dbTopicPageList);
+            List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbForumTopics);
+            PaginatedList<TopicViewModels> topicPageList = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);
+            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, topicPageList);
            
             return View(forumWrapper);
         }
@@ -56,8 +59,9 @@ namespace SiteSystem.Controllers
             int pageSize = Constants.PageSize;
             ICollection<Topic> dbForumTopics = forumService.GetForumTopics(id);
             string forumName = forumService.Find(id).ForumName;
-            PaginatedList<Topic> dbTopicPageList = new PaginatedList<Topic>(dbForumTopics.AsQueryable(), (page ?? 0), pageSize);
-            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, dbTopicPageList);
+            List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbForumTopics);
+            PaginatedList<TopicViewModels> topicPageList = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);
+            ForumInfoWrapper forumWrapper = new ForumInfoWrapper(id, forumName, topicPageList);
 
             return PartialView("_Info", forumWrapper);
         }

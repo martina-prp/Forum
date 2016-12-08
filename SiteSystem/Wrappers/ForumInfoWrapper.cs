@@ -21,13 +21,13 @@ namespace SiteSystem.Wrappers
             set;
         }
 
-        public PaginatedList<Topic> ForumTopics
+        public PaginatedList<TopicViewModels> ForumTopics
         {
             get;
             set;
         }
 
-        public ForumInfoWrapper(int forumId, string forumName, PaginatedList<Topic> forumTopics)
+        public ForumInfoWrapper(int forumId, string forumName, PaginatedList<TopicViewModels> forumTopics)
         {
             ForumId = forumId;
             ForumName = forumName;

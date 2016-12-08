@@ -29,7 +29,8 @@ namespace SiteSystem.Controllers
         {
             int pageSize = Constants.PageSize;
             List<Topic> dbTopics = topicService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
-            PaginatedList<Topic> paginatedTopics = new PaginatedList<Topic>(dbTopics.AsQueryable(), (page ?? 0), pageSize);
+            List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbTopics);
+            PaginatedList<TopicViewModels> paginatedTopics = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);
 
             return View("Topics", paginatedTopics);
         }
@@ -38,7 +39,8 @@ namespace SiteSystem.Controllers
         {
             int pageSize = Constants.PageSize;
             List<Comment> dbComments = commentService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
-            PaginatedList<Comment> paginatedComments = new PaginatedList<Comment>(dbComments.AsQueryable(), (page ?? 0), pageSize);
+            List<CommentViewModels> comments = Mapper.Map<List<CommentViewModels>>(dbComments);
+            PaginatedList<CommentViewModels> paginatedComments = new PaginatedList<CommentViewModels>(comments, (page ?? 0), pageSize);
 
             return View(paginatedComments);
         }
@@ -48,7 +50,8 @@ namespace SiteSystem.Controllers
             int pageSize = Constants.PageSize;
 
             List<Topic> dbTopics = topicService.GetAll().Where(topic => topic.User.UserName == User.Identity.Name).ToList();
-            PaginatedList<Topic> paginatedTopics = new PaginatedList<Topic>(dbTopics.AsQueryable(), (page ?? 0), pageSize);
+            List<TopicViewModels> topics = Mapper.Map<List<TopicViewModels>>(dbTopics);
+            PaginatedList<TopicViewModels> paginatedTopics = new PaginatedList<TopicViewModels>(topics, (page ?? 0), pageSize);
 
             return PartialView("_Topics", paginatedTopics);
         }
@@ -58,7 +61,8 @@ namespace SiteSystem.Controllers
             int pageSize = Constants.PageSize;
 
             List<Comment> dbComments = commentService.GetAll().Where(comment => comment.User.UserName == User.Identity.Name).ToList();
-            PaginatedList<Comment> paginatedComments = new PaginatedList<Comment>(dbComments.AsQueryable(), (page ?? 0), pageSize);
+            List<CommentViewModels> comments = Mapper.Map<List<CommentViewModels>>(dbComments);
+            PaginatedList<CommentViewModels> paginatedComments = new PaginatedList<CommentViewModels>(comments, (page ?? 0), pageSize);
 
             return PartialView("_Comments", paginatedComments);
         }

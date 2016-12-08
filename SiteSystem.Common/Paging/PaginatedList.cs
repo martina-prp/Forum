@@ -16,7 +16,7 @@ namespace SiteSystem.Common.Paging
         public PaginatedList()
         {
         }
-        public PaginatedList(IQueryable<T> source, int pageIndex, int pageSize)
+        public PaginatedList(ICollection<T> source, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;
